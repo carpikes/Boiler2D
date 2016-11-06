@@ -3,4 +3,4 @@ LDFLAGS=-lSDL2 -lSDL2_image -lSDL2_ttf
 
 all:
 	g++ -g -o microgue $(CFLAGS) $(LDFLAGS) \
-	Text.cc Config.cc main.cc Image.cc Engine.cc
+	Engine/Text.cc Engine/Config.cc main.cc Engine/Image.cc Engine/Engine.cc

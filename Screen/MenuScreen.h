@@ -1,13 +1,13 @@
 #ifndef MICROGUE_SCREEN_MENU_H
 #define MICROGUE_SCREEN_MENU_H
 
-#include "../Common.h"
-#include "../Screen.h"
-#include "../Engine.h"
-#include "../Config.h"
-#include "../SpriteManager.h"
-#include "../SpriteRenderer.h"
-#include "../Text.h"
+#include "../Engine/Common.h"
+#include "../Engine/Screen.h"
+#include "../Engine/Engine.h"
+#include "../Engine/Config.h"
+#include "../Engine/SpriteManager.h"
+#include "../Engine/SpriteRenderer.h"
+#include "../Engine/Text.h"
 
 class MenuScreen : public Screen 
 {

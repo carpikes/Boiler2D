@@ -1,5 +1,4 @@
-#include "Common.h"
-#include "Engine.h"
+#include "Engine/Engine.h"
 #include "Screen/MenuScreen.h"
 
 int main()
