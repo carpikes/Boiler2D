@@ -7,13 +7,16 @@
 class Image 
 {
 public:
-    Image(int id, const std::string& name) : mId(id), mName(name)
+    Image(int id, const sheetinfo_t& info) : mId(id), mInfo(info)
     {
         mUsageCount = 0;
         mTexture = NULL;
+        mNRows = 0;
+        mNColumns = 0;
     }
 
-    ~Image() {
+    ~Image()
+    {
         unload();
     }
 
@@ -35,16 +38,33 @@ public:
     {
         mUsageCount--;
         if(mUsageCount < 0)
-            printf("Image %d(%s) usage count < 0\n", mId, mName.c_str());
+            printf("Image %d(%s) usage count < 0\n", mId, mInfo.file.c_str());
         if(mUsageCount == 0)
             unload();
     }
+
+    const sheetinfo_t& getInfo() const
+    { 
+        return mInfo;
+    }
+
+    int getNSpritesY() const
+    { 
+        assert(mNRows != 0); 
+        return mNRows;
+    }
+
+    int getNSpritesX() const
+    { 
+        assert(mNColumns != 0);
+        return mNColumns;
+    }
 private:
     const int mId;
-    const std::string mName;
+    const sheetinfo_t mInfo;
 
     SDL_Texture *mTexture;
-    int mUsageCount;
+    int mUsageCount, mNColumns, mNRows;
 
     bool load();
     void unload();

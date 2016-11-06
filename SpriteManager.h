@@ -78,7 +78,7 @@ private:
         {
             int id = the_sheets[i].id;
             assert(id < sz);
-            mSheets[id] = new Image(id, the_sheets[i].file);
+            mSheets[id] = new Image(id, the_sheets[i]);
         }
 
         for(int i=0;i<sz; i++)

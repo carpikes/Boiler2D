@@ -1,5 +1,6 @@
 CFLAGS=-Wall -std=c++11
-LDFLAGS=-lSDL2 -lSDL_image
+LDFLAGS=-lSDL2 -lSDL2_image -lSDL2_ttf
 
 all:
-	g++ -o microgue $(CFLAGS) main.cc Image.cc $(LDFLAGS)
+	g++ -g -o microgue $(CFLAGS) $(LDFLAGS) \
+	Text.cc Config.cc main.cc Image.cc Engine.cc
