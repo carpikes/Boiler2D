@@ -1,8 +1,31 @@
 #include <Boiler2D/Text.h>
 #include <Boiler2D/Engine.h>
 
+void TextRenderer::unload()
+{
+    if(TTF_WasInit())
+    {
+        for(TTF_Font * f : mFonts) 
+        {
+            if(f != NULL)
+                TTF_CloseFont(f);
+        } 
+
+        TTF_Quit();
+    }
+}
+
 void TextRenderer::load()
 {
+    if(TTF_WasInit())
+        return;
+
+    if(TTF_Init() == -1)
+    {
+        printf("Cannot start sdl_ttf\n");
+        ::exit(-1);
+    }
+
     int i = 0;
     while(the_fonts[i].id != FONT_NULL) 
     {

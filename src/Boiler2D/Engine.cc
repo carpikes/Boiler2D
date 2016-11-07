@@ -4,11 +4,10 @@ Engine::Engine()
 {
     mCurScreen = NULL; 
     mWindow = NULL;
-    //mSurface = NULL;
     mRenderer = NULL; 
     mMustExit = false;
 
-    if(SDL_Init( SDL_INIT_VIDEO ) < 0)
+    if(SDL_Init( SDL_INIT_EVERYTHING ) < 0)
     {
         printf("Cannot start sdl\n");
         ::exit(-1);
@@ -20,11 +19,6 @@ Engine::Engine()
         ::exit(-1);
     }
 
-    if(TTF_Init() == -1) {
-        printf("Cannot start sdl_ttf\n");
-        ::exit(-1);
-    }
-
     mWindow = SDL_CreateWindow("Boiler2D", 
             SDL_WINDOWPOS_UNDEFINED, 
             SDL_WINDOWPOS_UNDEFINED, 
@@ -33,8 +27,6 @@ Engine::Engine()
 
     if(mWindow == NULL)
         ::exit(-1);
-
-    //mSurface = SDL_GetWindowSurface( mWindow );
 
     mRenderer = SDL_CreateRenderer( mWindow, -1, 
                 SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
@@ -50,14 +42,18 @@ Engine::Engine()
     sTextRenderer->load();
 }
 
-void Engine::shutdown() {
+void Engine::shutdown()
+{
     if(mWindow != NULL) 
     {
-        SDL_DestroyWindow( mWindow );  
+        SDL_DestroyRenderer(mRenderer);
+        SDL_DestroyWindow(mWindow);
         IMG_Quit();
+        sTextRenderer->unload();
+        SDL_QuitSubSystem(SDL_INIT_EVERYTHING);
         SDL_Quit();
-        mWindow = NULL;
         setScreen(NULL);
+        mWindow = NULL;
     } 
 }
 
@@ -104,7 +100,6 @@ void Engine::run()
         if(mCurScreen != NULL)
             mCurScreen->render(0.02f);
         SDL_RenderPresent( mRenderer );
-        //SDL_UpdateWindowSurface( mWindow );
         SDL_Delay(20);
     }
 

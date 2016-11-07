@@ -20,6 +20,12 @@ public:
         mSpriteOwner = spriteOwner;
     }
 
+    ~SpriteRenderer()
+    {
+        if(mSpriteOwner && mSprite != NULL)
+            delete mSprite;
+    }
+
     Rect getBoundingBox() const 
     {
         std::pair<float,float> s = 

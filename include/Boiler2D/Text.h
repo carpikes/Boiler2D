@@ -44,6 +44,7 @@ public:
 
     // da chiamare una sola volta all'avvio del programma
     void load();
+    void unload();
 
     // "ciao" -> Texture (da tenere in memoria o cancellare con clean
     FontTexture* draw(Fonts font, const std::string& text);
@@ -62,11 +63,7 @@ private:
     }
 
     ~TextRenderer() {
-        for(TTF_Font * f : mFonts) 
-        {
-            if(f != NULL)
-                TTF_CloseFont(f);
-        } 
+        unload();
     }
 
     void loadFont(int id, TTF_Font *font)

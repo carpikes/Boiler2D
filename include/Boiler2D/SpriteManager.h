@@ -14,6 +14,15 @@ public:
         return &g; 
     }
 
+    ~SpriteManager() {
+        for(Sprite *i : mSprites)
+            if(i != NULL)
+                delete i;
+        for(Image *i : mSheets)
+            if(i != NULL)
+                delete i;
+    }
+
     void load(int id) {
         if(id >= (int)mSprites.size())
         {
