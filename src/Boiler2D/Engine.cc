@@ -6,6 +6,8 @@ Engine::Engine()
     mWindow = NULL;
     mRenderer = NULL; 
     mMustExit = false;
+    mChangeScreen = false;
+    mNewScreen = NULL;
 
     if(SDL_Init( SDL_INIT_EVERYTHING ) < 0)
     {
@@ -62,6 +64,17 @@ void Engine::run()
     SDL_Event e;
     while(!mMustExit)
     {
+        if(mChangeScreen) 
+        {
+            mChangeScreen = false;
+            if(mCurScreen != NULL && mDeleteScreen)
+                delete mCurScreen; 
+
+            mCurScreen = mNewScreen;
+            if(mCurScreen != NULL)
+                mCurScreen->onLoad();
+        }
+
         while(SDL_PollEvent( &e ) != 0) 
         {
             if(e.type == SDL_QUIT) 

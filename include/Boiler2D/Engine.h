@@ -31,26 +31,28 @@ public:
     {
         if(mCurScreen == screen)
             return;
-        if(mCurScreen != NULL && delete_old)
-            delete mCurScreen; 
+        assert(mChangeScreen == false);
 
-        mCurScreen = screen;
-        if(mCurScreen != NULL)
-            mCurScreen->onLoad();
+        mNewScreen = screen;
+        mDeleteScreen = delete_old;
+        mChangeScreen = true;
     }
 
     void renderSprite(SpriteAnchor anchor, int id, float x, float y, float size);
 
-    void exit() {
+    void exit() 
+    {
         mMustExit = true; 
     }
 
     void run();
 private:
+    bool mChangeScreen, mDeleteScreen;
+    Screen *mNewScreen;
+
     bool mMustExit;
     Screen *mCurScreen;
     SDL_Window* mWindow;
-    //SDL_Surface* mSurface;
     SDL_Renderer* mRenderer;
 
     Engine();
