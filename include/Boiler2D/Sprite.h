@@ -5,31 +5,51 @@
 #include "Config.h"
 #include "Image.h"
 
-class Sprite 
+class Sprite
 {
 public:
-    Sprite(Image *img, const spriteinfo_t& info) : mImage(img), mInfo(info)
+    virtual ~Sprite() {}
+    virtual int getWidth() const 
+    { 
+        return mWidth;
+    }
+    virtual int getHeight() const 
+    { 
+        return mHeight;
+    }
+    virtual SDL_Texture *getTexture() = 0;
+protected:
+    int mWidth, mHeight;
+};
+
+class ImageSprite : public Sprite
+{
+public:
+    ImageSprite(Image *img, const spriteinfo_t& info) : 
+        mImage(img), mInfo(info)
     {
         mCurN = 0;
         mStartTime = SDL_GetTicks();
         mImage->incrementUsageCount(); 
+        mWidth = mImage->getInfo().tilew;
+        mHeight = mImage->getInfo().tileh;
     }
 
-    ~Sprite()
+    ~ImageSprite()
     {
         mImage->decrementUsageCount();
     }
 
-    inline int getWidth() const { return mImage->getInfo().tilew; }
-    inline int getHeight() const { return mImage->getInfo().tileh; }
-    
     // Ottiene la posizione nella spritesheet
-    SDL_Rect getRect() {
+    SDL_Rect getRect()
+    {
         const sheetinfo_t& imgInfo = mImage->getInfo();
 
-        if(mInfo.flags & SPRITEFLAG_ANIMATED) {
+        if(mInfo.flags & SPRITEFLAG_ANIMATED)
+        {
             mCurN = SDL_GetTicks() / mInfo.time;
-            if(mCurN >= mInfo.count) {
+            if(mCurN >= mInfo.count)
+            {
                 if(mInfo.flags & SPRITEFLAG_REPEAT) 
                     mCurN %= mInfo.count;
                 else
@@ -49,7 +69,8 @@ public:
         return a;
     }
 
-    SDL_Texture *getTexture() {
+    SDL_Texture *getTexture()
+    {
         return mImage->getTexture();
     }
 private:
@@ -57,6 +78,34 @@ private:
     const spriteinfo_t mInfo;
     int mCurN;
     uint32_t mStartTime;
+};
+
+class TextSprite : public Sprite
+{
+    friend class TextRenderer;
+public:
+    ~TextSprite()
+    {
+        SDL_DestroyTexture(mTexture); 
+    }
+
+    SDL_Texture *getTexture()
+    {
+        return mTexture; 
+    }
+private:
+    SDL_Texture *mTexture;
+
+    TextSprite(const TextSprite&) = delete;
+    TextSprite(TextSprite&&) = delete;
+    TextSprite& operator=(const TextSprite&) & = delete;
+    TextSprite& operator=(TextSprite&&) & = delete;
+
+    TextSprite(SDL_Texture *texture, int w, int h) : mTexture(texture)
+    { 
+        mWidth = w;
+        mHeight = h;
+    }
 };
 
 #endif /* ifndef BOILER2D_SPRITE_H */

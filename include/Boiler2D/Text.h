@@ -3,35 +3,7 @@
 
 #include "Common.h"
 #include "Config.h"
-
-class FontTexture
-{
-public:
-    FontTexture(SDL_Texture *texture, int w, int h) : mTexture(texture),
-            mWidth(w), mHeight(h) 
-    { }
-
-    ~FontTexture()
-    {
-        SDL_DestroyTexture(mTexture); 
-    }
-
-    SDL_Texture *getTexture()
-    {
-        return mTexture; 
-    }
-
-    int getWidth() const { return mWidth; }
-    int getHeight() const { return mHeight; }
-private:
-    SDL_Texture *mTexture;
-    int mWidth, mHeight;
-
-    FontTexture(const FontTexture&) = delete;
-    FontTexture(FontTexture&&) = delete;
-    FontTexture& operator=(const FontTexture&) & = delete;
-    FontTexture& operator=(FontTexture&&) & = delete;
-};
+#include "Sprite.h"
 
 class TextRenderer
 {
@@ -47,10 +19,11 @@ public:
     void unload();
 
     // "ciao" -> Texture (da tenere in memoria o cancellare con clean
-    FontTexture* draw(Fonts font, const std::string& text);
-    FontTexture* drawSlow(Fonts font, const std::string& text);
+    TextSprite* draw(Fonts font, const std::string& text);
+    TextSprite* drawSlow(Fonts font, const std::string& text);
 
-    void free(FontTexture *font) {
+    void free(TextSprite *font)
+    {
         if(font != NULL)
             delete font;
     }
@@ -62,7 +35,8 @@ private:
         mFonts.resize(FONT_NULL); 
     }
 
-    ~TextRenderer() {
+    ~TextRenderer()
+    {
         unload();
     }
 

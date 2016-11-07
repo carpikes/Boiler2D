@@ -45,7 +45,7 @@ void TextRenderer::load()
     }
 }
 
-FontTexture *TextRenderer::draw(Fonts font, const std::string& text)
+TextSprite *TextRenderer::draw(Fonts font, const std::string& text)
 {
     SDL_Surface *surface;
     if(font >= FONT_NULL)
@@ -62,13 +62,13 @@ FontTexture *TextRenderer::draw(Fonts font, const std::string& text)
     SDL_Texture *t = SDL_CreateTextureFromSurface(sEngine->getRenderer(), 
         surface ); 
 
-    FontTexture *ret = new FontTexture(t, surface->w, surface->h);
+    TextSprite *ret = new TextSprite(t, surface->w, surface->h);
     SDL_FreeSurface( surface );
 
     return ret;
 }
 
-FontTexture *TextRenderer::drawSlow(Fonts font, const std::string& text)
+TextSprite *TextRenderer::drawSlow(Fonts font, const std::string& text)
 {
     SDL_Surface *surface;
     if(font >= FONT_NULL)
@@ -85,7 +85,7 @@ FontTexture *TextRenderer::drawSlow(Fonts font, const std::string& text)
     SDL_Texture *t = SDL_CreateTextureFromSurface(sEngine->getRenderer(), 
         surface ); 
 
-    FontTexture *ret = new FontTexture(t, surface->w, surface->h);
+    TextSprite *ret = new TextSprite(t, surface->w, surface->h);
     SDL_FreeSurface( surface );
 
     return ret;

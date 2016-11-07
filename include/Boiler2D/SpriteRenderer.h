@@ -8,7 +8,7 @@
 
 class SpriteRenderer {
 public:
-    SpriteRenderer(FontTexture *sprite, Color color, float x, float y, 
+    SpriteRenderer(TextSprite *sprite, Color color, float x, float y, 
                    float zoom = 1.0f, SpriteAnchor anchor = ANCHOR_CENTER, 
                    bool spriteOwner = false) : mColor(color)
     {
@@ -69,7 +69,7 @@ private:
     SpriteAnchor mAnchor;
     Color mColor;
     float mZoom, mX, mY;
-    FontTexture *mSprite;
+    TextSprite *mSprite;
     bool mSpriteOwner;
 };
 

@@ -106,9 +106,10 @@ void Engine::run()
     shutdown();
 }
 
-void Engine::renderSprite(SpriteAnchor anchor, int id, float x, float y, float size)
+void Engine::renderSprite(SpriteAnchor anchor, int id, float x, 
+                          float y, float size)
 {
-    Sprite *sprite = sSpriteManager->get(id);
+    ImageSprite *sprite = sSpriteManager->get(id);
     std::pair<float,float> sz = Utils::tileSize();
 
     float sx = sprite->getWidth(), sy = sprite->getHeight();

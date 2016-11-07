@@ -14,7 +14,8 @@ public:
         return &g; 
     }
 
-    ~SpriteManager() {
+    ~SpriteManager()
+    {
         for(Sprite *i : mSprites)
             if(i != NULL)
                 delete i;
@@ -23,7 +24,8 @@ public:
                 delete i;
     }
 
-    void load(int id) {
+    void load(int id)
+    {
         if(id >= (int)mSprites.size())
         {
             printf("trying to load sprite %d, too high\n", id);
@@ -41,10 +43,11 @@ public:
         }
 
         Image *img = mSheets[s.sheet];
-        mSprites[id] = new Sprite(img, s);
+        mSprites[id] = new ImageSprite(img, s);
     }
 
-    void load(int id_from, int id_to) {
+    void load(int id_from, int id_to)
+    {
         if(id_to > (int)mSprites.size())
             id_to = mSprites.size() - 1;
 
@@ -53,7 +56,7 @@ public:
     }
 
     // carica al volo se non precaricata
-    Sprite* get(int id) 
+    ImageSprite* get(int id) 
     {
         if(id >= (int)mSprites.size()) 
         {
@@ -61,7 +64,7 @@ public:
             return NULL;
         }
 
-        Sprite *ret = mSprites[id];
+        ImageSprite *ret = mSprites[id];
         if(ret == NULL) 
         {
             load(id);
@@ -71,7 +74,7 @@ public:
     }
 private:
     std::vector<Image*> mSheets;
-    std::vector<Sprite*> mSprites;
+    std::vector<ImageSprite*> mSprites;
     std::vector<spriteinfo_t> mSpritesInfo;
 
     SpriteManager()
