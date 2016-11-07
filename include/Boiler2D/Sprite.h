@@ -1,5 +1,5 @@
-#ifndef MICROGUE_SPRITE_H
-#define MICROGUE_SPRITE_H
+#ifndef BOILER2D_SPRITE_H
+#define BOILER2D_SPRITE_H
 
 #include "Common.h"
 #include "Config.h"
@@ -59,4 +59,4 @@ private:
     uint32_t mStartTime;
 };
 
-#endif /* ifndef MICROGUE_SPRITE_H */
+#endif /* ifndef BOILER2D_SPRITE_H */

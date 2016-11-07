@@ -1,5 +1,5 @@
-#ifndef MICROGUE_SPRITE_MANAGER_H
-#define MICROGUE_SPRITE_MANAGER_H
+#ifndef BOILER2D_SPRITE_MANAGER_H
+#define BOILER2D_SPRITE_MANAGER_H
 
 #include "Common.h"
 #include "Config.h"
@@ -93,4 +93,4 @@ private:
 #define sSpriteManager SpriteManager::instance()
 
 
-#endif /* ifndef MICROGUE_SPRITE_MANAGER_H */
+#endif /* ifndef BOILER2D_SPRITE_MANAGER_H */

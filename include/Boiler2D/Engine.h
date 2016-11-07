@@ -1,5 +1,5 @@
-#ifndef MICROGUE_ENGINE_H
-#define MICROGUE_ENGINE_H
+#ifndef BOILER2D_ENGINE_H
+#define BOILER2D_ENGINE_H
 
 #include "Common.h"
 #include "Config.h"
@@ -65,4 +65,4 @@ private:
 #define sEngine Engine::instance()
 
 
-#endif /* ifndef MICROGUE_ENGINE_H */
+#endif /* ifndef BOILER2D_ENGINE_H */

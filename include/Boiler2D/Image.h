@@ -1,5 +1,5 @@
-#ifndef MICROGUE_IMAGE_H
-#define MICROGUE_IMAGE_H
+#ifndef BOILER2D_IMAGE_H
+#define BOILER2D_IMAGE_H
 
 #include "Common.h"
 #include "Config.h"
@@ -70,4 +70,4 @@ private:
     void unload();
 };
 
-#endif /* ifndef MICROGUE_IMAGE_H */
+#endif /* ifndef BOILER2D_IMAGE_H */

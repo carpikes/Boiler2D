@@ -1,5 +1,5 @@
-#ifndef MICROGUE_COMMON_H
-#define MICROGUE_COMMON_H 
+#ifndef BOILER2D_COMMON_H
+#define BOILER2D_COMMON_H 
 
 #include <iostream>
 #include <vector>
@@ -38,4 +38,4 @@ enum MouseButtons {
     MOUSE_UP,
     MOUSE_MOVE
 };
-#endif /* ifndef MICROGUE_COMMON_H */
+#endif /* ifndef BOILER2D_COMMON_H */

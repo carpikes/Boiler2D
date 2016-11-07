@@ -1,5 +1,5 @@
-#ifndef MICROGUE_SCREEN_MENU_H
-#define MICROGUE_SCREEN_MENU_H
+#ifndef BOILER2D_SCREEN_MENU_H
+#define BOILER2D_SCREEN_MENU_H
 
 #include <Boiler2D/Common.h>
 #include <Boiler2D/Screen.h>
@@ -17,7 +17,7 @@ public:
         // aggiungi voci menu
         sSpriteManager->load(SPRITE_FIRE);
 #define TEXT(f,t) sTextRenderer->drawSlow(FONT_##f##SHERWOOD, t)
-        mLogo = new SpriteRenderer(TEXT(B, "MICROGUE"), Color(160, 0, 0), 
+        mLogo = new SpriteRenderer(TEXT(B, "Boiler2D"), Color(160, 0, 0), 
                 0, 0.7f, 1.0f, ANCHOR_CENTER, true);
         mPlay = new SpriteRenderer(TEXT(S, "New Run"),  Color(128, 128, 128), 
                 0, 0.1f, 1.0f, ANCHOR_CENTER, true);
@@ -78,4 +78,4 @@ private:
     SpriteRenderer *mLogo, *mPlay, *mQuit;
 };
 
-#endif /* ifndef MICROGUE_SCREEN_MENU_H */
+#endif /* ifndef BOILER2D_SCREEN_MENU_H */

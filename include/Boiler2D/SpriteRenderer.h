@@ -1,5 +1,5 @@
-#ifndef MICROGUE_SPRITE_RENDERER_H
-#define MICROGUE_SPRITE_RENDERER_H
+#ifndef BOILER2D_SPRITE_RENDERER_H
+#define BOILER2D_SPRITE_RENDERER_H
 
 #include "Common.h"
 #include "Text.h"
@@ -67,4 +67,4 @@ private:
     bool mSpriteOwner;
 };
 
-#endif /* ifndef MICROGUE_SPRITE_RENDERER_H */
+#endif /* ifndef BOILER2D_SPRITE_RENDERER_H */

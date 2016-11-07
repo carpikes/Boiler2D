@@ -1,5 +1,5 @@
-#ifndef MICROGUE_SCREEN_H
-#define MICROGUE_SCREEN_H 
+#ifndef BOILER2D_SCREEN_H
+#define BOILER2D_SCREEN_H 
 
 #include "Common.h"
 
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif /* ifndef MICROGUE_SCREEN_H */
+#endif /* ifndef BOILER2D_SCREEN_H */

@@ -1,5 +1,5 @@
-#ifndef MICROGUE_UTILS_H
-#define MICROGUE_UTILS_H
+#ifndef BOILER2D_UTILS_H
+#define BOILER2D_UTILS_H
 
 #include "Common.h"
 #include "Config.h"
@@ -56,4 +56,4 @@ public:
     }
 };
 
-#endif /* ifndef MICROGUE_UTILS_H */
+#endif /* ifndef BOILER2D_UTILS_H */

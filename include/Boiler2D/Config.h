@@ -1,5 +1,5 @@
-#ifndef MICROGUE_CONFIG_H
-#define MICROGUE_CONFIG_H
+#ifndef BOILER2D_CONFIG_H
+#define BOILER2D_CONFIG_H
 
 #include "Common.h"
 
@@ -72,4 +72,4 @@ extern const spriteinfo_t the_sprites[];
 extern const sheetinfo_t the_sheets[];
 extern const fontsinfo_t the_fonts[];
 
-#endif /* ifndef MICROGUE_CONFIG_H */
+#endif /* ifndef BOILER2D_CONFIG_H */

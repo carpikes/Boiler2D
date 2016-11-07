@@ -1,5 +1,5 @@
-#ifndef MICROGUE_TEXT_H
-#define MICROGUE_TEXT_H
+#ifndef BOILER2D_TEXT_H
+#define BOILER2D_TEXT_H
 
 #include "Common.h"
 #include "Config.h"
@@ -85,4 +85,4 @@ private:
 
 #define sTextRenderer TextRenderer::instance()
 
-#endif /* ifndef MICROGUE_TEXT_H */
+#endif /* ifndef BOILER2D_TEXT_H */

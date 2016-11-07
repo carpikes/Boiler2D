@@ -25,7 +25,7 @@ Engine::Engine()
         ::exit(-1);
     }
 
-    mWindow = SDL_CreateWindow("Microgue", 
+    mWindow = SDL_CreateWindow("Boiler2D", 
             SDL_WINDOWPOS_UNDEFINED, 
             SDL_WINDOWPOS_UNDEFINED, 
             SCREEN_WIDTH, SCREEN_HEIGHT, 
