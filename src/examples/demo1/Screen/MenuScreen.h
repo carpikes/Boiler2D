@@ -1,5 +1,5 @@
-#ifndef BOILER2D_SCREEN_MENU_H
-#define BOILER2D_SCREEN_MENU_H
+#ifndef BOILER2D_EXAMPLE_SCREEN_MENU_H
+#define BOILER2D_EXAMPLE_SCREEN_MENU_H
 
 #include <Boiler2D/Common.h>
 #include <Boiler2D/Screen.h>
@@ -8,6 +8,7 @@
 #include <Boiler2D/SpriteManager.h>
 #include <Boiler2D/SpriteRenderer.h>
 #include <Boiler2D/Text.h>
+#include "GameScreen.h"
 
 class MenuScreen : public Screen 
 {
@@ -34,12 +35,12 @@ public:
         delete mQuit;
     }
 
-    virtual void onMouseEvent(MouseButtons buttons, float x, float y)
+    virtual void onMouseEvent(MouseEvent event, float x, float y)
     {
 #define CHECK(btn,f) \
         if(Utils::inBoundingBox(btn->getBoundingBox(), x, y)) { \
             btn->setColor(Color(192,64,64)); \
-            if(buttons == MOUSE_DOWN) { f(); } \
+            if(event == MOUSE_DOWN) { f(); } \
         } else \
             btn->setColor(Color(128,128,128));
 
@@ -48,12 +49,12 @@ public:
 #undef CHECK
     }
 
-    void onPlay() {
-        printf("Play\n"); 
+    virtual void onKeyboardEvent(KBDEvent event, SDL_Keycode key)
+    {
     }
 
-    void onSetting() {
-        printf("Settings\n"); 
+    void onPlay() {
+        sEngine->setScreen(new GameScreen, true);
     }
 
     void onQuit() {
@@ -78,4 +79,4 @@ private:
     SpriteRenderer *mLogo, *mPlay, *mQuit;
 };
 
-#endif /* ifndef BOILER2D_SCREEN_MENU_H */
+#endif /* ifndef BOILER2D_EXAMPLE_SCREEN_MENU_H */

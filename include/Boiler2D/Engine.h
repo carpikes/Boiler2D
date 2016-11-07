@@ -57,6 +57,7 @@ private:
 
     Engine();
     void shutdown();
+    void dispatchEvent(SDL_Event *e);
 
     Engine(const Engine&) = delete;
     Engine(Engine&&) = delete;

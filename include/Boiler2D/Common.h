@@ -10,7 +10,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <cassert>
 
-enum SpriteAnchor {
+enum SpriteAnchor 
+{
     ANCHOR_TOPLEFT      = 0x00, 
     ANCHOR_TOP          = 0x01, 
     ANCHOR_TOPRIGHT     = 0x02,
@@ -22,20 +23,30 @@ enum SpriteAnchor {
     ANCHOR_BOTTOMRIGHT  = 0x22,
 };
 
-struct Color {
+struct Color
+{
     uint8_t r,g,b;
     Color(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
 };
 
-struct Rect {
+struct Rect
+{
     float x,y,w,h;
     Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
 };
 
-enum MouseButtons {
+enum MouseEvent
+{
     MOUSE_NONE,
     MOUSE_DOWN,
     MOUSE_UP,
     MOUSE_MOVE
+};
+
+enum KBDEvent
+{
+    KBD_DOWN,
+    KBD_UP,
+    KBD_NONE,
 };
 #endif /* ifndef BOILER2D_COMMON_H */

@@ -59,11 +59,37 @@ void Engine::shutdown()
     } 
 }
 
+void Engine::dispatchEvent(SDL_Event *e) 
+{
+    int x, y;
+    if(mCurScreen == NULL)
+        return;
+
+    if(e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONUP ||
+       e->type == SDL_MOUSEBUTTONDOWN)
+    {
+        SDL_GetMouseState( &x, &y );
+        std::pair<float,float> mc = Utils::screenToWorld(x, y);
+        MouseEvent mouse = e->type == SDL_MOUSEMOTION ? MOUSE_MOVE :
+                            e->type == SDL_MOUSEBUTTONUP ? MOUSE_UP :
+                            MOUSE_DOWN;
+        mCurScreen->onMouseEvent(mouse, mc.first, mc.second);
+    }
+
+    if(e->type == SDL_KEYDOWN || e->type == SDL_KEYUP)
+    {
+        KBDEvent kbd;
+        kbd = (e->type == SDL_KEYDOWN) ? KBD_DOWN : KBD_UP;
+        mCurScreen->onKeyboardEvent(kbd, e->key.keysym.sym);
+    }
+}
+
 void Engine::run() 
 {
     SDL_Event e;
     while(!mMustExit)
     {
+        // Handle screen swap gracefully
         if(mChangeScreen) 
         {
             mChangeScreen = false;
@@ -75,44 +101,26 @@ void Engine::run()
                 mCurScreen->onLoad();
         }
 
-        while(SDL_PollEvent( &e ) != 0) 
+        while(!mMustExit && SDL_PollEvent( &e ) != 0) 
         {
             if(e.type == SDL_QUIT) 
-            {
                 mMustExit = true;
-                break;
-            } 
-            else if(mCurScreen != NULL) 
-            {
-                if(e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN 
-                                             || e.type == SDL_MOUSEBUTTONUP) 
-                {
-                    int x, y;
-                    SDL_GetMouseState( &x, &y );
-                    std::pair<float,float> mc = Utils::screenToWorld(x, y);
-                    MouseButtons evx;
-                    switch(e.type) 
-                    {
-                        case SDL_MOUSEMOTION: evx = MOUSE_MOVE; break;
-                        case SDL_MOUSEBUTTONUP: evx = MOUSE_UP; break;
-                        case SDL_MOUSEBUTTONDOWN: evx = MOUSE_DOWN; break;
-                        default: evx = MOUSE_NONE; break;
-                    }
-                    mCurScreen->onMouseEvent(evx, mc.first, mc.second);
-                }
-            }
+            else
+                dispatchEvent(&e);
         }
 
-        if(mMustExit) // catturo l'exit dopo gli eventi
+        // Catch SDL_QUIT
+        if(mMustExit) 
             break;
 
         if(mCurScreen != NULL)
+        {
             mCurScreen->update(0.02f); 
 
-        SDL_RenderClear( mRenderer );
-        if(mCurScreen != NULL)
+            SDL_RenderClear( mRenderer );
             mCurScreen->render(0.02f);
-        SDL_RenderPresent( mRenderer );
+            SDL_RenderPresent( mRenderer );
+        }
         SDL_Delay(20);
     }
 
