@@ -1,3 +1,4 @@
 microgue
 .*.sw?
 .*.pyc
+build/*

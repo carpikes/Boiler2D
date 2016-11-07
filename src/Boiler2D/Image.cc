@@ -1,5 +1,5 @@
-#include "Image.h"
-#include "Engine.h"
+#include <Boiler2D/Image.h>
+#include <Boiler2D/Engine.h>
 
 bool Image::load()
 {

@@ -1,5 +1,5 @@
-#include "Text.h"
-#include "Engine.h"
+#include <Boiler2D/Text.h>
+#include <Boiler2D/Engine.h>
 
 void TextRenderer::load()
 {
@@ -28,7 +28,7 @@ FontTexture *TextRenderer::draw(Fonts font, const std::string& text)
     if(font >= FONT_NULL)
         return NULL;
 
-    SDL_Color white = {255,255,255};
+    SDL_Color white = {255,255,255,255};
     surface = TTF_RenderText_Solid(mFonts[font], text.c_str(), white);
     if(surface == NULL)
     {
@@ -51,7 +51,7 @@ FontTexture *TextRenderer::drawSlow(Fonts font, const std::string& text)
     if(font >= FONT_NULL)
         return NULL;
 
-    SDL_Color white = {255,255,255};
+    SDL_Color white = {255,255,255,255};
     surface = TTF_RenderText_Blended(mFonts[font], text.c_str(), white);
     if(surface == NULL)
     {

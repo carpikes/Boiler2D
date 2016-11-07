@@ -1,6 +1,18 @@
-CFLAGS=-Wall -std=c++11
-LDFLAGS=-lSDL2 -lSDL2_image -lSDL2_ttf
+all: build project
 
-all:
-	g++ -g -o microgue $(CFLAGS) $(LDFLAGS) \
-	Engine/Text.cc Engine/Config.cc main.cc Engine/Image.cc Engine/Engine.cc
+build:
+	@mkdir -p build
+	cd build && cmake ..
+
+project:
+	cd build && make -j8
+
+demo1: build project
+	build/bin/demo1
+
+clean:
+	rm -rf build/
+
+again: clean build project
+
+.PHONY: project run clean again

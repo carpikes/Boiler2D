@@ -1,13 +1,13 @@
 #ifndef MICROGUE_SCREEN_MENU_H
 #define MICROGUE_SCREEN_MENU_H
 
-#include "../Engine/Common.h"
-#include "../Engine/Screen.h"
-#include "../Engine/Engine.h"
-#include "../Engine/Config.h"
-#include "../Engine/SpriteManager.h"
-#include "../Engine/SpriteRenderer.h"
-#include "../Engine/Text.h"
+#include <Boiler2D/Common.h>
+#include <Boiler2D/Screen.h>
+#include <Boiler2D/Engine.h>
+#include <Boiler2D/Config.h>
+#include <Boiler2D/SpriteManager.h>
+#include <Boiler2D/SpriteRenderer.h>
+#include <Boiler2D/Text.h>
 
 class MenuScreen : public Screen 
 {

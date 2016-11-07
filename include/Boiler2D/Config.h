@@ -3,8 +3,8 @@
 
 #include "Common.h"
 
-#define SCREEN_WIDTH     1280
-#define SCREEN_HEIGHT    720
+#define SCREEN_WIDTH     1024
+#define SCREEN_HEIGHT    768
 
 // Elencare qua i font TTF 
 enum Fonts {
@@ -16,7 +16,7 @@ enum Fonts {
 
 // Elencare qua i nomi interni degli sprite sheets
 enum SpriteSheets {
-    SHEET_DEMO,
+//    SHEET_DEMO,
     SHEET_FIRE,
     SHEET_NULL   // ultimo!
 };
@@ -25,9 +25,9 @@ enum SpriteSheets {
 // numero di id (quindi un = 0xffff farebbe allocare tanta memoria!)
 // Indicare qua i nomi interni delle sprites
 enum SpriteList {
-    SPRITE_GRASS,
-    SPRITE_WALL,
-    SPRITE_PLANT,
+//    SPRITE_GRASS,
+//    SPRITE_WALL,
+//    SPRITE_PLANT,
     SPRITE_FIRE,
     // altre sprites
     // ...

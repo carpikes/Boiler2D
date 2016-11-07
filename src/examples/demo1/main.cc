@@ -1,4 +1,4 @@
-#include "Engine/Engine.h"
+#include <Boiler2D/Engine.h>
 #include "Screen/MenuScreen.h"
 
 int main()
