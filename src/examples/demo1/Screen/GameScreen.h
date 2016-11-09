@@ -7,6 +7,16 @@
 
 const uint8_t* getMap();
 
+bool isValid(int x, int y)
+{
+    if(x < 0 || x >= 30 || y < 0 || y >= 30)
+        return false;
+
+    if(getMap()[y * 30 + x] != 5)
+        return false;
+    return true;
+}
+
 class Enemy
 {
 public:
@@ -151,6 +161,161 @@ private:
     uint8_t mDij[30*30]; 
 };
 
+class Human
+{
+public:
+    Human()
+    {
+        mHumanPos[0] = mHumanPos[1] = 16;
+        mMoveLeft = mMoveUp = 0;
+        mSpeedLeft = mSpeedUp = 0;
+        mTargetPos[0] = mTargetPos[1] = 16;
+        mMovePerc[0] = mMovePerc[1] = 0.0f;
+        mLastSprite = SPRITE_WARRIOR1;
+    }
+
+    void beginMoveLeft(int n)
+    {
+        mMoveLeft = n;
+    }
+
+    void beginMoveUp(int n)
+    {
+        mMoveUp = n;    
+    }
+
+    void update(float dt)
+    {
+        const float maxSpeed = 5.0f;
+        const float accel = 500.0f;
+        mSpeedLeft = mSpeedLeft * 0.85f + accel * mMoveLeft * dt;
+        mSpeedUp = mSpeedUp * 0.85f + accel * mMoveUp * dt;
+
+        if(mSpeedLeft > maxSpeed)  mSpeedLeft =  maxSpeed;
+        if(mSpeedLeft < -maxSpeed) mSpeedLeft = -maxSpeed;
+        if(mSpeedUp > maxSpeed)    mSpeedUp   =  maxSpeed;
+        if(mSpeedUp < -maxSpeed)   mSpeedUp   = -maxSpeed;
+
+        float nx = mMovePerc[0] + mSpeedLeft * dt;
+        float ny = mMovePerc[1] - mSpeedUp * dt;
+
+        if(nx >= 1.0f) 
+        {
+            if(isValid(mHumanPos[0] + 1, mHumanPos[1]))
+            {
+                nx -= 2.0f; // muoviti a destra
+                mHumanPos[0]++; 
+            }
+            else
+                nx = 1.0f; 
+        }
+
+        if(nx <= -1.0f)
+        {
+            if(isValid(mHumanPos[0] - 1, mHumanPos[1]))
+            {
+                nx += 2.0f; 
+                mHumanPos[0]--; 
+            }
+            else
+                nx = -1.0f; 
+        }
+
+        if(ny >= 1.0f)
+        {
+            if(isValid(mHumanPos[0], mHumanPos[1] + 1))
+            {
+                ny -= 2.0f;
+                mHumanPos[1]++; 
+            }
+            else
+                ny = 1.0f; 
+        }
+
+        if(ny <= -1.0f)
+        {
+            if(isValid(mHumanPos[0], mHumanPos[1] - 1))
+            {
+                ny += 2.0f;
+                mHumanPos[1]--; 
+            }
+            else
+                ny = -1.0f; 
+        }
+
+        mMovePerc[0] = nx;
+        mMovePerc[1] = ny;
+    }
+
+    float getX() const
+    {
+        return mHumanPos[0] + mMovePerc[0] * 0.5f;
+    }
+
+    float getY() const
+    {
+        return mHumanPos[1] + mMovePerc[1] * 0.5f;
+    }
+
+    int getTileX() const
+    {
+        return mHumanPos[0];
+    }
+
+    int getTileY() const
+    {
+        return mHumanPos[1];
+    }
+
+    float getSpeed() const
+    {
+        float a = sqrt(mSpeedLeft * mSpeedLeft + mSpeedUp * mSpeedUp) / 8.0f;
+        return (a > 0.1f) ? 1.0f : a;
+    }
+
+    int getSprite()
+    {
+        int sprite = SPRITE_REDWALL1;
+        if(mMoveLeft == 0)
+        {
+            if(mMoveUp == 0)
+                return mLastSprite;
+
+            if(mMoveUp > 0)
+                sprite = SPRITE_WARRIOR3;
+            else
+                sprite = SPRITE_WARRIOR7;
+        }
+        if(mMoveLeft < 0)
+        {
+            if(mMoveUp == 0)
+                sprite = SPRITE_WARRIOR4;
+            else if(mMoveUp > 0)
+                sprite = SPRITE_WARRIOR2;
+            else
+                sprite = SPRITE_WARRIOR8;
+        }
+        if(mMoveLeft > 0)
+        {
+            if(mMoveUp == 0)
+                sprite = SPRITE_WARRIOR6;
+            else if(mMoveUp > 0)
+                sprite = SPRITE_WARRIOR1;
+            else
+                sprite = SPRITE_WARRIOR5;
+        }
+        mLastSprite = sprite;
+        return sprite;
+    }
+private:
+    int mLastSprite;
+    int mMoveUp, mMoveLeft;
+    float mSpeedLeft, mSpeedUp;
+    int mHumanPos[2];
+    int mTargetPos[2];
+    float mMovePerc[2];
+};
+
 class MapRenderer
 {
 public:
@@ -158,15 +323,30 @@ public:
     {
         camX = 0.1f;
         camY = 0.9f;
-        mHumanPos[0] = mHumanPos[1] = 16;
-        mMoveLeft = mMoveUp = 0;
-        mSpeedLeft = mSpeedUp = 0;
+        mEngine = sEngine;
+    }
+
+    bool onKeyboardEvent(KBDEvent event, SDL_Keycode key) 
+    {
+        int n = 0;
+        if(event == KBD_DOWN) 
+            n = 1;
+        else
+            n = 0;
+        switch(key)
+        {
+            case SDLK_w:  mHuman.beginMoveUp(n); break;
+            case SDLK_a:  mHuman.beginMoveLeft(-n); break;
+            case SDLK_s:  mHuman.beginMoveUp(-n); break;
+            case SDLK_d:  mHuman.beginMoveLeft(n); break;
+        };
+        return false;
     }
 
     void update(float dt)
     {
-        move(dt);
-        mEnemy.update(mHumanPos[0], mHumanPos[1]);
+        mHuman.update(dt);
+        mEnemy.update(mHuman.getTileX(), mHuman.getTileY());
     }
 
     void render() 
@@ -184,82 +364,34 @@ public:
                     case 4: id = SPRITE_PAVA; break;
                     case 5: id = SPRITE_PAVG; break;
                 }
-                drawTile(id, j, i);
+                drawTile(id, j, i, 1);
             }
 
-        drawTile(SPRITE_HUMAN, mHumanPos[0], mHumanPos[1]);
-
-        drawTile(SPRITE_ENEMY, mEnemy.getX(), mEnemy.getY());
+        drawTile(mHuman.getSprite(), mHuman.getX(), mHuman.getY(), 1.0, mHuman.getSpeed());
+        //drawTile(SPRITE_ENEMY, mEnemy.getX(), mEnemy.getY(), 1);
     }
 
-    void drawTile(int id, float x, float y)
+    void drawTile(int id, float x, float y, float size = 1.0f, float speed = 1.0f)
     {
         const auto& tz = Utils::tileSize();
-        float size = 1.5f;
-        float szX = tz.first * size;
-        float szY = tz.second * size;
+        const float zoombase = 1.5f;
+        float szX = tz.first * zoombase;
+        float szY = tz.second * zoombase;
 
         float posY = 0.5f * (x * szX + y * szX);
         float posX = 0.5f * (y * szY - x * szY);
         posX = -posX;
         posY = -posY / 2.0f;
 
-        sEngine->renderSprite(ANCHOR_CENTER, id, posX + camX, posY + camY, size);
+        mEngine->renderSprite(ANCHOR_CENTER, id, posX + camX, posY + camY, size * zoombase, speed);
     }
 
-    void beginMoveLeft(int n)
-    {
-        mMoveLeft = n;
-    }
-
-    void beginMoveUp(int n)
-    {
-        mMoveUp = n;    
-    }
-    void move(float dt)
-    {
-        const float maxSpeed = 3.0f;
-        const float accel = 500.0f;
-        mSpeedLeft *= 0.80f;
-        mSpeedUp *= 0.80f;
-
-        mSpeedLeft += accel * mMoveLeft * dt;
-        mSpeedUp += accel * mMoveUp * dt;
-        if(mSpeedLeft > maxSpeed)
-            mSpeedLeft = maxSpeed;
-        if(mSpeedLeft < -maxSpeed)
-            mSpeedLeft = -maxSpeed;
-        if(mSpeedUp > maxSpeed)
-            mSpeedUp = maxSpeed;
-        if(mSpeedUp < -maxSpeed)
-            mSpeedUp = -maxSpeed;
-        float nx = mHumanPos[0] + mSpeedLeft * dt;
-        float ny = mHumanPos[1] - mSpeedUp * dt;
-        nx = (mSpeedLeft >= 0) ? ceil(nx) : floor(nx);
-        ny = (mSpeedUp >= 0) ? floor(ny) : ceil(ny);
-        if(!isValid(nx, ny))
-            return;
-
-        mHumanPos[0] += mSpeedLeft * dt;
-        mHumanPos[1] -= mSpeedUp * dt;
-    }
-
-    bool isValid(int x, int y)
-    {
-        if(x < 0 || x >= 30 || y < 0 || y >= 30)
-            return false;
-
-        if(mMap[y * 30 + x] != 5)
-            return false;
-        return true;
-    }
 private:
     float camX, camY;
     Enemy mEnemy;
-    float mSpeedLeft, mSpeedUp;
+    Human mHuman;
     const uint8_t *mMap;
-    int mMoveUp, mMoveLeft;
-    float mHumanPos[2];
+    Engine *mEngine;
 };
 
 class GameScreen : public Screen
@@ -282,20 +414,10 @@ public:
 
     virtual void onKeyboardEvent(KBDEvent event, SDL_Keycode key)
     {
-        int n = 0;
         if(event == KBD_UP && key == SDLK_ESCAPE)
             sEngine->exit();
-        if(event == KBD_DOWN) 
-            n = 1;
-        else
-            n = 0;
-        switch(key)
-        {
-            case SDLK_w:  mMap.beginMoveUp(n); break;
-            case SDLK_a:  mMap.beginMoveLeft(-n); break;
-            case SDLK_s:  mMap.beginMoveUp(-n); break;
-            case SDLK_d:  mMap.beginMoveLeft(n); break;
-        };
+
+        mMap.onKeyboardEvent(event, key);
     }
 
     virtual void update(float dt)
@@ -311,7 +433,7 @@ private:
     MapRenderer mMap;
 };
 
-const uint8_t* getMap() 
+inline const uint8_t* getMap() 
 {
     static uint8_t map[30*30] = 
     {

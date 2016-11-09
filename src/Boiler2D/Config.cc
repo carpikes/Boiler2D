@@ -27,6 +27,14 @@ const spriteinfo_t the_sprites[] = {
     { SPRITE_HUMAN,     SHEET_ISO,     0x01,   160,  1,     0 },
     { SPRITE_ENEMY,     SHEET_ISO,     0x01,   161,  1,     0 },
     { SPRITE_FIRE,      SHEET_FIRE,    0x31,    0,  32,    20 },
+    { SPRITE_WARRIOR1,  SHEET_WARRIOR, 0x31,    0,   8,    50 },
+    { SPRITE_WARRIOR2,  SHEET_WARRIOR, 0x31,    8,   8,    50 },
+    { SPRITE_WARRIOR3,  SHEET_WARRIOR, 0x31,   16,   8,    50 },
+    { SPRITE_WARRIOR4,  SHEET_WARRIOR, 0x31,   24,   8,    50 },
+    { SPRITE_WARRIOR5,  SHEET_WARRIOR, 0x31,   32,   8,    50 },
+    { SPRITE_WARRIOR6,  SHEET_WARRIOR, 0x31,   40,   8,    50 },
+    { SPRITE_WARRIOR7,  SHEET_WARRIOR, 0x31,   48,   8,    50 },
+    { SPRITE_WARRIOR8,  SHEET_WARRIOR, 0x31,   56,   8,    50 },
     // altre
     // ...
     { SPRITE_NULL,      SHEET_NULL,     0x00,    0,   0,     0 }
@@ -34,7 +42,8 @@ const spriteinfo_t the_sprites[] = {
 
 const sheetinfo_t the_sheets[] = {
     { SHEET_ISO,  "data/iso.png",        64,     64  },
-    { SHEET_FIRE, "data/fire.png",       64,     128 },
+    { SHEET_FIRE, "data/fire.png",       64,    128  },
+    { SHEET_WARRIOR, "data/warrior.png", 48,     48 },
     { SHEET_NULL, "", 0, 0},
 };
 

@@ -12,7 +12,7 @@
 class Engine
 {
 public:
-    static Engine *instance() { 
+    inline static Engine *instance() { 
         static Engine g; 
         return &g; 
     }
@@ -38,7 +38,7 @@ public:
         mChangeScreen = true;
     }
 
-    void renderSprite(SpriteAnchor anchor, int id, float x, float y, float size);
+    void renderSprite(SpriteAnchor anchor, int id, float x, float y, float size, float speed = 1.0f);
 
     void exit() 
     {

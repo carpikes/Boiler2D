@@ -128,7 +128,7 @@ void Engine::run()
 }
 
 void Engine::renderSprite(SpriteAnchor anchor, int id, float x, 
-                          float y, float size)
+                          float y, float size, float speed)
 {
     ImageSprite *sprite = sSpriteManager->get(id);
     std::pair<float,float> sz = Utils::tileSize();
@@ -152,7 +152,7 @@ void Engine::renderSprite(SpriteAnchor anchor, int id, float x,
             sz.second * ry);
 
     SDL_Rect dest = { p.first, p.second, s.first, s.second };
-    SDL_Rect src = sprite->getRect();
+    SDL_Rect src = sprite->getRect(speed);
 
     SDL_RenderCopy( mRenderer, sprite->getTexture(), &src, &dest ); 
 }

@@ -18,6 +18,7 @@ enum Fonts {
 enum SpriteSheets {
     SHEET_ISO,
     SHEET_FIRE,
+    SHEET_WARRIOR,
     SHEET_NULL   // ultimo!
 };
 
@@ -49,6 +50,14 @@ enum SpriteList {
     SPRITE_HUMAN,
     SPRITE_ENEMY,
     SPRITE_FIRE,
+    SPRITE_WARRIOR1, 
+    SPRITE_WARRIOR2, 
+    SPRITE_WARRIOR3, 
+    SPRITE_WARRIOR4, 
+    SPRITE_WARRIOR5, 
+    SPRITE_WARRIOR6, 
+    SPRITE_WARRIOR7, 
+    SPRITE_WARRIOR8, 
     // altre sprites
     // ...
     
