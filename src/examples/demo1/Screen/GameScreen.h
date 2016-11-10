@@ -48,13 +48,13 @@ public:
         }
     }
 
-    std::pair<int,int> lowestNeigh(uint8_t *arr, int j, int i)
+    std::pair<int,int> lowestNeigh(int8_t *arr, int j, int i)
     {
-        uint8_t low = 254; 
+        int8_t low = 126; 
         std::pair<int,int> ret(j,i);
         if(i > 0 && isValid(j, i-1))
         {
-            uint8_t n = arr[(i-1) * 30 + j];
+            int8_t n = arr[(i-1) * 30 + j];
             if(low > n) {
                 low = n;
                 ret.first = j;
@@ -63,7 +63,7 @@ public:
         }
         if(i < 30 && isValid(j, i+1))
         {
-            uint8_t n = arr[(i+1) * 30 + j];
+            int8_t n = arr[(i+1) * 30 + j];
             if(low > n) {
                 low = n;
                 ret.first = j;
@@ -72,7 +72,7 @@ public:
         }
         if(j > 0 && isValid(j-1, i))
         {
-            uint8_t n = arr[i * 30 + j - 1];
+            int8_t n = arr[i * 30 + j - 1];
             if(low > n) {
                 low = n;
                 ret.first = j-1;
@@ -81,7 +81,7 @@ public:
         }
         if(j < 30 && isValid(j, i+1))
         {
-            uint8_t n = arr[i * 30 + j + 1];
+            int8_t n = arr[i * 30 + j + 1];
             if(low > n) {
                 low = n;
                 ret.first = j+1;
@@ -96,7 +96,7 @@ public:
     {
         if(!isValid(tX, tY))
             return;
-        memset(mDij, 254, 30*30);
+        memset(mDij, 126, 30*30);
 
         mDij[tY * 30 + tX] = 0;
         bool stop = false;
@@ -110,7 +110,28 @@ public:
                         continue;
 
                     auto p = lowestNeigh(mDij, j, i); // lowest neigh
-                    uint8_t n = mDij[p.first + p.second * 30];
+                    int8_t n = mDij[p.first + p.second * 30];
+                    if(mDij[i * 30 + j] > n + 1)
+                    {
+                        mDij[i * 30 + j] = n + 1;
+                        stop = false;
+                    }
+                } 
+        }
+        for(int i=0;i<30*30;i++)
+            mDij[i] = (float)mDij[i] * -1.2f;
+        stop = false;
+        while(!stop)
+        {
+            stop = true;
+            for(int i=0;i<30;i++)
+                for(int j=0;j<30;j++) 
+                {
+                    if(!isValid(j, i))
+                        continue;
+
+                    auto p = lowestNeigh(mDij, j, i); // lowest neigh
+                    int8_t n = mDij[p.first + p.second * 30];
                     if(mDij[i * 30 + j] > n + 1)
                     {
                         mDij[i * 30 + j] = n + 1;
@@ -158,7 +179,7 @@ public:
 private:
     int mPos[2], mAdPos[2], mTmr;
     const uint8_t *mMap;
-    uint8_t mDij[30*30]; 
+    int8_t mDij[30*30]; 
 };
 
 class Human
@@ -368,7 +389,7 @@ public:
             }
 
         drawTile(mHuman.getSprite(), mHuman.getX(), mHuman.getY(), 1.0, mHuman.getSpeed());
-        //drawTile(SPRITE_ENEMY, mEnemy.getX(), mEnemy.getY(), 1);
+        drawTile(SPRITE_ENEMY, mEnemy.getX(), mEnemy.getY(), 1);
     }
 
     void drawTile(int id, float x, float y, float size = 1.0f, float speed = 1.0f)

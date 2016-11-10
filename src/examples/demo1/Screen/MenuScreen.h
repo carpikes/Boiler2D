@@ -9,6 +9,7 @@
 #include <Boiler2D/SpriteRenderer.h>
 #include <Boiler2D/Text.h>
 #include "GameScreen.h"
+#include "BridgeScreen.h"
 
 class MenuScreen : public Screen 
 {
@@ -22,8 +23,10 @@ public:
                 0, 0.7f, 1.0f, ANCHOR_CENTER, true);
         mPlay = new SpriteRenderer(TEXT(S, "New Run"),  Color(128, 128, 128), 
                 0, 0.1f, 1.0f, ANCHOR_CENTER, true);
-        mQuit = new SpriteRenderer(TEXT(S, "Quit"),     Color(128, 128, 128), 
+        mBridge = new SpriteRenderer(TEXT(S, "Bridge"),  Color(128, 128, 128), 
                 0,-0.1f, 1.0f, ANCHOR_CENTER, true);
+        mQuit = new SpriteRenderer(TEXT(S, "Quit"),     Color(128, 128, 128), 
+                0,-0.3f, 1.0f, ANCHOR_CENTER, true);
 #undef TEXT
     }
 
@@ -32,6 +35,7 @@ public:
         // cancella memoria allocata 
         delete mLogo;
         delete mPlay;
+        delete mBridge;
         delete mQuit;
     }
 
@@ -45,6 +49,7 @@ public:
             btn->setColor(Color(128,128,128));
 
         CHECK(mPlay, onPlay);
+        CHECK(mBridge, onBridge);
         CHECK(mQuit, onQuit);
 #undef CHECK
     }
@@ -55,6 +60,10 @@ public:
 
     void onPlay() {
         sEngine->setScreen(new GameScreen, true);
+    }
+
+    void onBridge() {
+        sEngine->setScreen(new BridgeScreen, true);
     }
 
     void onQuit() {
@@ -73,10 +82,11 @@ public:
 
         mLogo->render();
         mPlay->render();
+        mBridge->render();
         mQuit->render();
     }
 private:
-    SpriteRenderer *mLogo, *mPlay, *mQuit;
+    SpriteRenderer *mLogo, *mPlay, *mQuit, *mBridge;
 };
 
 #endif /* ifndef BOILER2D_EXAMPLE_SCREEN_MENU_H */
