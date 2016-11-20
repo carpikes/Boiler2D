@@ -3,16 +3,21 @@
 
 #include "Common.h"
 
+namespace Game
+{
+
 class Object
 {
 public:
-    void position(const Coords& c) { mPosition = c; }
-    Coords position() const { return mPosition; }
+    void position(const TileCoords& c) { mPosition = c; }
+    TileCoords position() const { return mPosition; }
     virtual void update(float dt) = 0;
     virtual void render(float dt) = 0;
 protected:
-    Coords mPosition;
+    TileCoords mPosition;
 };
 
+
+} /* Game */
 
 #endif /* ifndef GAME_OBJECT_H */

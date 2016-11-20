@@ -3,6 +3,9 @@
 
 #include "Object.h"
 
+namespace Game
+{
+    
 class Enemy : public Object
 {
 public:
@@ -17,6 +20,8 @@ public:
     }
 private:
 };
+
+} /* Game */ 
 
 
 #endif /* ifndef GAME_ENEMY_H */

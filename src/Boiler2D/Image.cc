@@ -1,6 +1,9 @@
 #include <Boiler2D/Image.h>
 #include <Boiler2D/Engine.h>
 
+namespace Boiler2D
+{
+
 bool Image::load()
 {
     assert(mTexture == NULL);
@@ -33,4 +36,7 @@ bool Image::load()
 void Image::unload() {
     if(mTexture != NULL)
         SDL_DestroyTexture(mTexture);
+
+} /* Boiler2D */
+
 }

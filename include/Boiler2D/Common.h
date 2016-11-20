@@ -11,6 +11,9 @@
 #include <cassert>
 #include <cmath>
 
+namespace Boiler2D
+{
+
 enum SpriteAnchor 
 {
     ANCHOR_TOPLEFT      = 0x00, 
@@ -30,12 +33,6 @@ struct Color
     Color(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
 };
 
-struct Rect
-{
-    float x,y,w,h;
-    Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
-};
-
 enum MouseEvent
 {
     MOUSE_NONE,
@@ -50,4 +47,7 @@ enum KBDEvent
     KBD_UP,
     KBD_NONE,
 };
+
+} /* Boiler2D */
+
 #endif /* ifndef BOILER2D_COMMON_H */

@@ -1,6 +1,9 @@
 #include <Boiler2D/Text.h>
 #include <Boiler2D/Engine.h>
 
+namespace Boiler2D
+{
+
 void TextRenderer::unload()
 {
     if(TTF_WasInit())
@@ -89,4 +92,7 @@ TextSprite *TextRenderer::drawSlow(Fonts font, const std::string& text)
     SDL_FreeSurface( surface );
 
     return ret;
+
+} /* Boiler2D */
+
 }

@@ -11,6 +11,8 @@
 #include "GameScreen.h"
 #include "BridgeScreen.h"
 
+using namespace Boiler2D;
+
 class MenuScreen : public Screen 
 {
 public:
@@ -42,8 +44,9 @@ public:
 
     virtual void onMouseEvent(MouseEvent event, float x, float y)
     {
+        FloatCoords c(x,y);
 #define CHECK(btn,f) \
-        if(Utils::inBoundingBox(btn->getBoundingBox(), x, y)) { \
+        if(c.inRect(btn->getBoundingBox())) { \
             btn->setColor(Color(192,64,64)); \
             if(event == MOUSE_DOWN) { f(); } \
         } else \

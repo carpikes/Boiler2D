@@ -5,6 +5,10 @@
 #include "Text.h"
 #include "Utils.h"
 #include "Engine.h"
+#include "Geometry.h"
+
+namespace Boiler2D
+{
 
 class SpriteRenderer {
 public:
@@ -26,12 +30,11 @@ public:
             delete mSprite;
     }
 
-    Rect getBoundingBox() const 
+    FloatRect getBoundingBox() const 
     {
         std::pair<float,float> s = 
             Utils::screenToWorldSize(mSprite->getWidth(), mSprite->getHeight());
-        Rect out = { mX, mY, s.first, s.second }; 
-        return out;
+        return FloatRect(mX, mY, s.first, s.second); 
     }
 
     void setColor(Color c)
@@ -72,5 +75,8 @@ private:
     TextSprite *mSprite;
     bool mSpriteOwner;
 };
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_SPRITE_RENDERER_H */

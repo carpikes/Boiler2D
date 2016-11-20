@@ -4,56 +4,52 @@
 #include "Common.h"
 #include "Config.h"
 
+namespace Boiler2D
+{
+
 class Utils
 {
 public:
-    static constexpr double ratio() 
+    static constexpr float ratio() 
     {
-        return (double) SCREEN_WIDTH / (double) SCREEN_HEIGHT;
+        return (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
     }
 
-    static constexpr std::pair<double,double> tileSize() 
+    static constexpr std::pair<float,float> tileSize() 
     {
-        return std::pair<double,double>(0.05, 0.05);
+        return std::pair<float,float>(0.05, 0.05);
     }
 
-    static std::pair<int,int> worldToScreen(double x, double y)
+    static std::pair<int,int> worldToScreen(float x, float y)
     {
-        int sx = x * SCREEN_WIDTH / (double) ratio();
+        int sx = x * SCREEN_WIDTH / (float) ratio();
         int sy = y * SCREEN_HEIGHT; 
         return std::pair<int,int>(sx, sy);
     } 
 
-    static std::pair<int,int> worldToScreenSize(double w, double h)
+    static std::pair<int,int> worldToScreenSize(float w, float h)
     {
         int sx = w * SCREEN_HEIGHT;
         int sy = h * SCREEN_HEIGHT; 
         return std::pair<int,int>(sx, sy);
     } 
 
-    static std::pair<double,double> screenToWorld(int x, int y)
+    static std::pair<float,float> screenToWorld(int x, int y)
     {
-        double sx = x / (double) SCREEN_WIDTH * ratio();
-        double sy = y / (double) SCREEN_HEIGHT; 
-        return std::pair<double,double>(sx, sy);
+        float sx = x / (float) SCREEN_WIDTH * ratio();
+        float sy = y / (float) SCREEN_HEIGHT; 
+        return std::pair<float,float>(sx, sy);
     } 
 
-    static std::pair<double,double> screenToWorldSize(int w, int h)
+    static std::pair<float,float> screenToWorldSize(int w, int h)
     {
-        double sx = w / (double) SCREEN_HEIGHT;
-        double sy = h / (double) SCREEN_HEIGHT; 
-        return std::pair<double,double>(sx, sy);
+        float sx = w / (float) SCREEN_HEIGHT;
+        float sy = h / (float) SCREEN_HEIGHT; 
+        return std::pair<float,float>(sx, sy);
     } 
-
-    static bool inBoundingBox(const Rect& box, double x, double y) 
-    {
-        std::pair<int,int> b1 = worldToScreen(box.x, box.y);
-        std::pair<int,int> b2 = worldToScreenSize(box.w, box.h);
-        std::pair<int,int> p = worldToScreen(x, y);
-
-        return (b1.first <= p.first && b1.first + b2.first >= p.first &&
-                b1.second <= p.second && b1.second + b2.second >= p.second);
-    }
 };
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_UTILS_H */

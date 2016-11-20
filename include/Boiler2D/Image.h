@@ -4,6 +4,9 @@
 #include "Common.h"
 #include "Config.h"
 
+namespace Boiler2D
+{
+
 class Image 
 {
 public:
@@ -69,5 +72,8 @@ private:
     bool load();
     void unload();
 };
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_IMAGE_H */

@@ -4,14 +4,22 @@
 #include "World.h"
 #include "Object.h"
 
+namespace Game
+{
+
 static const int PLAYER_FULL_LIFE = 10;
 
 class Player : public Object
 {
 public:
-    Player() : mLife(PLAYER_FULL_LIFE)
+    Player()
     {
-         
+        Player(TileCoords(0,0));
+    }
+
+    Player(const TileCoords& position) : mLife(PLAYER_FULL_LIFE)
+    {
+        mPosition = position; 
     }
 
     void onHit()
@@ -38,7 +46,10 @@ public:
     }
 private:
     int mLife;
+    TileCoords mPosition;
 };
 
+
+} /* Game */
 
 #endif /* ifndef GAME_PLAYER_H */

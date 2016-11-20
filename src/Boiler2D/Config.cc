@@ -1,5 +1,8 @@
 #include <Boiler2D/Config.h>
 
+namespace Boiler2D
+{
+
 // Qua van definite le sprites
 const spriteinfo_t the_sprites[] = {
 //    NOME_SPRITE,      NOME_SHEET,    FLAGS,    N, CNT,   DELAY (anim)
@@ -91,4 +94,7 @@ const fontsinfo_t the_fonts[] = {
     { FONT_SSHERWOOD, "data/SHERWOOD.TTF",   30 },
     { FONT_NULL,      "",                0 },
 };
+
+} /* Boiler2D */
+
 

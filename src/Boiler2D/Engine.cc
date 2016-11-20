@@ -1,5 +1,8 @@
 #include <Boiler2D/Engine.h>
 
+namespace Boiler2D
+{
+
 Engine::Engine()
 {
     mCurScreen = NULL; 
@@ -155,4 +158,7 @@ void Engine::renderSprite(SpriteAnchor anchor, int id, float x,
     SDL_Rect src = sprite->getRect(speed);
 
     SDL_RenderCopy( mRenderer, sprite->getTexture(), &src, &dest ); 
+
+} /* Boiler2D */
+
 }

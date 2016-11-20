@@ -5,6 +5,8 @@
 #include <Boiler2D/Screen.h>
 #include <Boiler2D/Engine.h>
 
+using namespace Boiler2D;
+
 const uint8_t* getMap();
 
 bool isValid(int x, int y)

@@ -4,6 +4,10 @@
 #include "Common.h"
 #include "Config.h"
 #include "Engine.h"
+#include "Camera.h"
+
+namespace Boiler2D
+{
 
 struct TileMap
 {
@@ -74,7 +78,7 @@ public:
         }
         mTmr += dt;
     }
-
+#undef MAP
     void centerViewOn(int x, int y, bool smooth = true)
     {
         mCamTarget[0] = 0.0f - x * mZoom;
@@ -107,6 +111,10 @@ private:
     const TileMap *const mMap;
     Engine *const mEngine;
     float mTmr, mZoom, mRZoom, mCam[2], mCamTarget[2];
+    Camera mCamera;
 };
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_TOPDOWN_MAP_RENDERER_H */

@@ -5,6 +5,9 @@
 #include "Config.h"
 #include "Image.h"
 
+namespace Boiler2D
+{
+
 class Sprite
 {
 public:
@@ -152,5 +155,8 @@ private:
         mHeight = h;
     }
 };
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_SPRITE_H */

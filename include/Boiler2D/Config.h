@@ -3,6 +3,9 @@
 
 #include "Common.h"
 
+namespace Boiler2D
+{
+
 #define SCREEN_WIDTH     1024
 #define SCREEN_HEIGHT    768
 
@@ -137,5 +140,8 @@ struct spriteinfo_t {
 extern const spriteinfo_t the_sprites[];
 extern const sheetinfo_t the_sheets[];
 extern const fontsinfo_t the_fonts[];
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_CONFIG_H */

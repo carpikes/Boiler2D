@@ -9,6 +9,9 @@
 #include "Text.h"
 #include "SpriteManager.h"
 
+namespace Boiler2D
+{
+
 class Engine
 {
 public:
@@ -46,6 +49,11 @@ public:
     }
 
     void run();
+
+    void render(ImageSprite *tile, const SDL_Rect* src, const SDL_Rect* dest) 
+    {
+        SDL_RenderCopy(mRenderer, tile->getTexture(), src, dest);
+    }
 private:
     bool mChangeScreen, mDeleteScreen;
     Screen *mNewScreen;
@@ -67,5 +75,8 @@ private:
 
 #define sEngine Engine::instance()
 
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_ENGINE_H */

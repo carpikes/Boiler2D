@@ -5,6 +5,9 @@
 #include "Config.h"
 #include "Sprite.h"
 
+namespace Boiler2D
+{
+
 class TextRenderer
 {
 public:
@@ -55,5 +58,8 @@ private:
 };
 
 #define sTextRenderer TextRenderer::instance()
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_TEXT_H */

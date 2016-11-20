@@ -28,7 +28,7 @@ public:
         if(event == KBD_UP && key == SDLK_ESCAPE)
             sEngine->exit();
 
-        mMap.onKeyboardEvent(event, key);
+        //mMap.onKeyboardEvent(event, key);
     }
 
     virtual void update(float dt)
@@ -37,10 +37,10 @@ public:
 
     virtual void render(float dt)
     {
-        mMap.render(dt);
+        //mMap.render(dt);
     }
 private:
-    BridgeRenderer mMap;
+    //BridgeRenderer mMap;
 };
 
 #endif /* ifndef BOILER2D_EXAMPLE_SCREEN_BRIDGE_H */

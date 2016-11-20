@@ -3,6 +3,9 @@
 
 #include "Common.h"
 
+namespace Boiler2D
+{
+
 class Screen
 {
 public:
@@ -14,5 +17,8 @@ public:
     virtual void render(float dt) = 0;
 };
 
+
+
+} /* Boiler2D */
 
 #endif /* ifndef BOILER2D_SCREEN_H */
