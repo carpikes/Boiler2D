@@ -39,7 +39,7 @@ Engine::Engine()
         ::exit(-1);
     }
     SDL_SetRenderDrawColor( mRenderer, 0, 0, 0, 0xFF );
-    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" );
+    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" );
 
     sTextRenderer->load();
 }
@@ -141,7 +141,7 @@ void Engine::renderSprite(SpriteAnchor anchor, int id, float x,
         rx *= (sx / sy);
 
     float xanch = x - (anchor & 0x0f) * (sz.second * 0.5f * rx);
-    float yanch = y + (anchor >> 4) * (sz.second * 0.5f * ry);
+    float yanch = y - (anchor >> 4) * (sz.second * 0.5f * ry);
 
     // coords in screen space
     std::pair<int,int> p = Utils::worldToScreen(xanch, yanch);

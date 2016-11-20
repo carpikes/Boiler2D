@@ -39,18 +39,18 @@ public:
         mColor = c;
     }
 
-    void setX(float x)
+    void setX(double x)
     {
-        std::pair<float,float> w = Utils::screenToWorldSize(
+        std::pair<double,double> w = Utils::screenToWorldSize(
                 mSprite->getWidth(), mSprite->getHeight());
         mX = x - (mAnchor & 0x0f) * (w.first / 2.0f); 
     }
 
-    void setY(float y)
+    void setY(double y)
     {
-        std::pair<float,float> w = Utils::screenToWorldSize(
+        std::pair<double,double> w = Utils::screenToWorldSize(
                 mSprite->getWidth(), mSprite->getHeight());
-        mY = y + (mAnchor >> 4) * (w.second / 2.0f);
+        mY = y - (mAnchor >> 4) * (w.second / 2.0f);
     }
 
     void render()

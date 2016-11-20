@@ -7,45 +7,45 @@
 class Utils
 {
 public:
-    static constexpr float ratio() 
+    static constexpr double ratio() 
     {
-        return (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
+        return (double) SCREEN_WIDTH / (double) SCREEN_HEIGHT;
     }
 
-    static constexpr std::pair<float,float> tileSize() 
+    static constexpr std::pair<double,double> tileSize() 
     {
-        return std::pair<float,float>(0.101f, 0.101f);
+        return std::pair<double,double>(0.05, 0.05);
     }
 
-    static std::pair<int,int> worldToScreen(float x, float y)
+    static std::pair<int,int> worldToScreen(double x, double y)
     {
-        int sx = ((x / ratio()) + 1) / 2.0f * SCREEN_WIDTH;
-        int sy = (-y + 1) / 2.0f * SCREEN_HEIGHT; 
+        int sx = x * SCREEN_WIDTH / (double) ratio();
+        int sy = y * SCREEN_HEIGHT; 
         return std::pair<int,int>(sx, sy);
     } 
 
-    static std::pair<int,int> worldToScreenSize(float w, float h)
+    static std::pair<int,int> worldToScreenSize(double w, double h)
     {
-        int sx = w * SCREEN_HEIGHT / 2.0f;
-        int sy = h * SCREEN_HEIGHT / 2.0f; 
+        int sx = w * SCREEN_HEIGHT;
+        int sy = h * SCREEN_HEIGHT; 
         return std::pair<int,int>(sx, sy);
     } 
 
-    static std::pair<float,float> screenToWorld(int x, int y)
+    static std::pair<double,double> screenToWorld(int x, int y)
     {
-        float sx = ((x / (float) SCREEN_WIDTH) * 2.0f - 1.0f) * ratio();
-        float sy = 2.0f * (1.0f - (y / (float) SCREEN_HEIGHT)) - 1.0f; 
-        return std::pair<float,float>(sx, sy);
+        double sx = x / (double) SCREEN_WIDTH * ratio();
+        double sy = y / (double) SCREEN_HEIGHT; 
+        return std::pair<double,double>(sx, sy);
     } 
 
-    static std::pair<float,float> screenToWorldSize(int w, int h)
+    static std::pair<double,double> screenToWorldSize(int w, int h)
     {
-        float sx = w / (float) SCREEN_HEIGHT * 2.0f;
-        float sy = h / (float) SCREEN_HEIGHT * 2.0f; 
-        return std::pair<float,float>(sx, sy);
+        double sx = w / (double) SCREEN_HEIGHT;
+        double sy = h / (double) SCREEN_HEIGHT; 
+        return std::pair<double,double>(sx, sy);
     } 
 
-    static bool inBoundingBox(const Rect& box, float x, float y) 
+    static bool inBoundingBox(const Rect& box, double x, double y) 
     {
         std::pair<int,int> b1 = worldToScreen(box.x, box.y);
         std::pair<int,int> b2 = worldToScreenSize(box.w, box.h);

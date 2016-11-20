@@ -16,17 +16,18 @@ class MenuScreen : public Screen
 public:
     void onLoad()
     {
+        float xPos = Utils::ratio() * 0.5f;
         // aggiungi voci menu
         sSpriteManager->load(SPRITE_FIRE);
 #define TEXT(f,t) sTextRenderer->drawSlow(FONT_##f##SHERWOOD, t)
         mLogo = new SpriteRenderer(TEXT(B, "Boiler2D"), Color(160, 0, 0), 
-                0, 0.7f, 1.0f, ANCHOR_CENTER, true);
+                xPos, 0.1f, 1.0f, ANCHOR_CENTER, true);
         mPlay = new SpriteRenderer(TEXT(S, "New Run"),  Color(128, 128, 128), 
-                0, 0.1f, 1.0f, ANCHOR_CENTER, true);
+                xPos, 0.4f, 1.0f, ANCHOR_CENTER, true);
         mBridge = new SpriteRenderer(TEXT(S, "Bridge"),  Color(128, 128, 128), 
-                0,-0.1f, 1.0f, ANCHOR_CENTER, true);
+                xPos, 0.5f, 1.0f, ANCHOR_CENTER, true);
         mQuit = new SpriteRenderer(TEXT(S, "Quit"),     Color(128, 128, 128), 
-                0,-0.3f, 1.0f, ANCHOR_CENTER, true);
+                xPos, 0.6f, 1.0f, ANCHOR_CENTER, true);
 #undef TEXT
     }
 
@@ -77,8 +78,10 @@ public:
 
     virtual void render(float dt)
     {
-        sEngine->renderSprite(ANCHOR_BOTTOMRIGHT, SPRITE_FIRE, Utils::ratio(), -1.3f, 6.0f); 
-        sEngine->renderSprite(ANCHOR_BOTTOMLEFT, SPRITE_FIRE,-Utils::ratio(), -1.3f, 6.0f); 
+        sEngine->renderSprite(ANCHOR_BOTTOMRIGHT, 
+                              SPRITE_FIRE, Utils::ratio(), 1.1f, 6.0f); 
+        sEngine->renderSprite(ANCHOR_BOTTOMLEFT, 
+                              SPRITE_FIRE, 0.0f, 1.1f, 6.0f); 
 
         mLogo->render();
         mPlay->render();

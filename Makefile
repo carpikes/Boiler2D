@@ -10,6 +10,9 @@ project:
 demo1: build project
 	build/bin/demo1
 
+demo: build project
+	build/bin/demo
+
 clean:
 	rm -rf build/
 
